@@ -63,7 +63,10 @@ const NEXCONN_CONFIG = {
     "C Block": "block_c", // created the same way on 20 Nov 2026 (createGroup returned success).
     "D Block": "block_d", // created the same way on 20 Nov 2026 (createGroup returned success).
   },
-  BOT_HOST: false,
+  // Demo design: BOT_HOST is true so the first open client acts as the bot
+  // host and anyone opening the app gets bot replies; if more than one tab
+  // is open at the same time, a bot reply can be duplicated.
+  BOT_HOST: true,
 };
 
 /* =====================================================================

@@ -295,6 +295,7 @@ input { font-family: inherit; }
   padding: 6px 16px;
   background: var(--chat-bg);
 }
+.screen[hidden], .typing-row[hidden] { display: none; }
 .typing-dot {
   width: 7px; height: 7px;
   border-radius: 50%;
