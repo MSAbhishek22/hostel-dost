@@ -312,7 +312,7 @@ input { font-family: inherit; }
   display: flex;
   gap: 8px;
   padding: 10px 12px;
-  padding-bottom: max(10px, env(safe-area-inset-bottom));
+  padding-bottom: 72px;
   background: var(--chat-bg);
 }
 #input-message {
