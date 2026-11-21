@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Hostel Dost — apne block ka group chat</title>
+<meta name="description" content="Hostel aur PG ke liye group chat. Roz wale sawal — mess ka time, laundry, Wi-Fi — Dost Bot wahi chat me jawab deta hai.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ============ SCREEN 1: JOIN ============ -->
+<section id="screen-join" class="screen">
+  <div class="join-wrap">
+    <div class="brand">
+      <div class="brand-mark">D</div>
+      <h1>Hostel Dost</h1>
+      <p class="tagline">Apne block ka group chat. Jo sawal har naye student ko pareshan karte hain — mess kab band hota hai, laundry kab aata hai — unka jawab yahi chat me mil jayega.</p>
+    </div>
+
+    <form id="join-form" class="card" autocomplete="off">
+      <label class="field-label" for="input-name">Tumhara naam</label>
+      <input id="input-name" type="text" maxlength="30" placeholder="Jaise: Rahul Sharma" required>
+
+      <span class="field-label">Tum kaun ho?</span>
+      <div class="segmented" role="radiogroup" aria-label="Role">
+        <button type="button" class="seg-btn is-active" data-role="new" role="radio" aria-checked="true">Naya Student</button>
+        <button type="button" class="seg-btn" data-role="senior" role="radio" aria-checked="false">Senior</button>
+      </div>
+
+      <span class="field-label">Apna block chuno</span>
+      <div class="chips" id="block-chips" role="radiogroup" aria-label="Hostel block">
+        <button type="button" class="chip is-active" data-block="A Block" role="radio" aria-checked="true">A Block</button>
+        <button type="button" class="chip" data-block="B Block" role="radio" aria-checked="false">B Block</button>
+        <button type="button" class="chip" data-block="C Block" role="radio" aria-checked="false">C Block</button>
+        <button type="button" class="chip" data-block="D Block" role="radio" aria-checked="false">D Block</button>
+      </div>
+
+      <button type="submit" class="btn-primary">Chat me chalo</button>
+      <p class="fineprint">Password nahi chahiye. Naam aur block se hi entry hai — hostel ke group ke liye itna hi kaafi hai.</p>
+    </form>
+  </div>
+</section>
+
+<!-- ============ SCREEN 2: GROUP CHAT ============ -->
+<section id="screen-chat" class="screen" hidden>
+  <header class="chat-header">
+    <button id="btn-leave" class="icon-btn" aria-label="Wapas jao" title="Naam ya block badlo">&#8592;</button>
+    <div class="chat-title">
+      <h2 id="chat-block-name">A Block</h2>
+      <p id="chat-mode-line" class="mode-line">Jud rahe hain…</p>
+    </div>
+    <button id="btn-questions" class="btn-small">Common sawal</button>
+  </header>
+
+  <div id="mode-banner" class="mode-banner" hidden></div>
+
+  <main id="messages" class="messages" aria-live="polite"></main>
+
+  <div id="typing-row" class="typing-row" hidden>
+    <span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>
+    <span class="typing-text">Dost Bot likh raha hai…</span>
+  </div>
+
+  <form id="composer" class="composer" autocomplete="off">
+    <input id="input-message" type="text" maxlength="500" placeholder="Message likho, ya sawal puchho…" aria-label="Message likho">
+    <button type="submit" class="btn-send" aria-label="Bhejo">Bhejo</button>
+  </form>
+</section>
+
+<!-- ============ SCREEN 3: COMMON QUESTIONS ============ -->
+<section id="screen-questions" class="screen" hidden>
+  <header class="chat-header">
+    <button id="btn-back-chat" class="icon-btn" aria-label="Chat par wapas" title="Chat par wapas">&#8592;</button>
+    <div class="chat-title">
+      <h2>Common sawal</h2>
+      <p class="mode-line">Ye sab Dost Bot ko aata hai</p>
+    </div>
+  </header>
+
+  <main class="questions-wrap">
+    <p class="honest-note">Dost Bot sirf wahi jawab deta hai jo is list me hai — andaza nahi lagata. Jis sawal ka jawab list me nahi, uske liye wo saaf mana kar dega aur koi senior bata dega. Kisi sawal par tap karo — wo chat me chala jayega aur bot wahi jawab dega.</p>
+    <div id="question-groups"></div>
+
+    <div class="card profile-card">
+      <h3>Tumhari pehchan is chat me</h3>
+      <p id="profile-line">—</p>
+      <button id="btn-change-identity" class="btn-small">Naam ya block badlo</button>
+    </div>
+  </main>
+</section>
+
+<script src="app.js"></script>
+</body>
+</html>
