@@ -6,12 +6,85 @@
 <title>Hostel Dost — apne block ka group chat</title>
 <meta name="description" content="Hostel aur PG ke liye group chat. Roz wale sawal — mess ka time, laundry, Wi-Fi — Dost Bot wahi chat me jawab deta hai.">
 <link rel="stylesheet" href="styles.css">
+<style>
+.hero3d-wrap{position:relative;height:340px;min-height:260px;overflow:hidden;background:#0b1020;border-radius:18px;margin:18px auto;max-width:1100px}
+.hero3d-wrap canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hero3d-cap{position:absolute;left:18px;bottom:36px;margin:0;color:#fff;font:600 14px/1.4 system-ui,-apple-system,sans-serif;text-shadow:0 1px 8px rgba(0,0,0,.65);z-index:2}
+.hero3d-cue{position:absolute;left:50%;bottom:10px;transform:translateX(-50%);margin:0;color:rgba(255,255,255,.92);font:600 13px/1.4 system-ui,-apple-system,sans-serif;letter-spacing:.08em;text-transform:uppercase;z-index:2;animation:hero3dbob 2s ease-in-out infinite}
+@keyframes hero3dbob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,4px)}}
+@media(max-width:640px){.hero3d-wrap{height:280px;margin:12px}}
+</style>
 </head>
 <body>
 
 <!-- ============ SCREEN 1: JOIN ============ -->
 <section id="screen-join" class="screen">
   <div class="join-wrap">
+<section class="hero3d-wrap" aria-label="3D scene — Four blocks, one chat — your hostel in 3D.">
+  <canvas id="hero3d" aria-hidden="true"></canvas>
+  <p class="hero3d-cap">Four blocks, one chat — your hostel in 3D.</p>
+  <p class="hero3d-cue">&#8595; Scroll to explore</p>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js"></script>
+<script>
+/* J8 hero 3D — auto-starts on first load, no click needed. Three.js r149 CDN
+   with unpkg fallback. Pauses off-screen; renders one static frame when the
+   user prefers reduced motion. */
+(function(){
+  var canvas = document.getElementById('hero3d'); if(!canvas) return;
+  function start(){
+    if(!window.THREE){
+      var s = document.createElement('script');
+      s.src = 'https://unpkg.com/three@0.149.0/build/three.min.js';
+      s.onload = start; document.head.appendChild(s); return;
+    }
+    var THREE = window.THREE;
+    var wrap = canvas.parentElement;
+    var renderer = new THREE.WebGLRenderer({canvas: canvas, antialias: true});
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    var scene = new THREE.Scene(); scene.background = new THREE.Color(0x1c1030);
+    var camera = new THREE.PerspectiveCamera(45, 2, 0.1, 100);
+    camera.position.set(0, 0.8, 10);
+    scene.add(new THREE.AmbientLight(0xffffff, 0.75));
+    var dl = new THREE.DirectionalLight(0xffffff, 0.9); dl.position.set(4, 6, 6); scene.add(dl);
+    var dl2 = new THREE.DirectionalLight(0xffffff, 0.35); dl2.position.set(-5, -2, 4); scene.add(dl2);
+    var bubbles = [];
+    var defs = [[-3.3, 0xf97316], [-1.1, 0x22c55e], [1.1, 0x3b82f6], [3.3, 0xa855f7]];
+    defs.forEach(function(d, i){
+      var g = new THREE.Group();
+      var s = new THREE.Mesh(new THREE.SphereGeometry(0.85, 28, 28),
+        new THREE.MeshStandardMaterial({color: d[1], roughness: 0.4}));
+      g.add(s);
+      var nub = new THREE.Mesh(new THREE.ConeGeometry(0.3, 0.45, 12),
+        new THREE.MeshStandardMaterial({color: d[1], roughness: 0.4}));
+      nub.position.set(0.45, -0.85, 0); nub.rotation.z = Math.PI; g.add(nub);
+      g.position.x = d[0]; g.userData.ph = i*1.4; scene.add(g); bubbles.push(g);
+    });
+    var N = 40, pos = new Float32Array(N*3);
+    for(var i=0;i<N;i++){ pos[i*3] = (Math.random()-0.5)*11; pos[i*3+1] = (Math.random()-0.5)*5; pos[i*3+2] = (Math.random()-0.5)*3 - 1; }
+    var geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    var pts = new THREE.Points(geo, new THREE.PointsMaterial({color: 0xffffff, size: 0.08, transparent: true, opacity: 0.6}));
+    scene.add(pts);
+
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var visible = true;
+    function size(){ var w=wrap.clientWidth, h=wrap.clientHeight; if(!w||!h) return;
+      renderer.setSize(w,h,false); camera.aspect=w/h; camera.updateProjectionMatrix(); }
+    size(); window.addEventListener('resize', size);
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(en){ visible = en[0].isIntersecting; }, {threshold: 0}).observe(wrap);
+    }
+    var clock = new THREE.Clock();
+    function tick(t){ bubbles.forEach(function(b, i){ b.position.y = Math.sin(t*1.1 + b.userData.ph)*0.35; b.rotation.y = Math.sin(t*0.6 + i)*0.3; });
+    pts.rotation.y = t*0.04; }
+    function frame(){ requestAnimationFrame(frame); if(!visible) return; tick(clock.getElapsedTime()); renderer.render(scene, camera); }
+    if(reduced){ tick(0.6); renderer.render(scene, camera); } else { frame(); }
+  }
+  if(document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', start); }
+  else { start(); }
+})();
+</script>
+
     <div class="brand">
       <div class="brand-mark">D</div>
       <h1>Hostel Dost</h1>
