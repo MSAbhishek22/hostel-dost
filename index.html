@@ -13,9 +13,46 @@
 .hero3d-cue{position:absolute;left:50%;bottom:10px;transform:translateX(-50%);margin:0;color:rgba(255,255,255,.92);font:600 13px/1.4 system-ui,-apple-system,sans-serif;letter-spacing:.08em;text-transform:uppercase;z-index:2;animation:hero3dbob 2s ease-in-out infinite}
 @keyframes hero3dbob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,4px)}}
 @media(max-width:640px){.hero3d-wrap{height:280px;margin:12px}}
+
+.landing{max-width:1100px;margin:0 auto;padding:28px 18px 8px;font-family:system-ui,-apple-system,sans-serif;color:#1f2430}
+.landing-hero{text-align:center;padding:28px 12px 10px}
+.landing-hero h2{font-size:clamp(28px,5vw,44px);line-height:1.15;margin:0 0 12px}
+.landing-hero p{max-width:680px;margin:0 auto 18px;font-size:17px;line-height:1.6;color:#444b5c}
+.landing-cta{display:inline-block;background:#111827;color:#fff;padding:13px 22px;border-radius:999px;text-decoration:none;font-weight:700}
+.landing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:26px 0 10px;text-align:left}
+.landing-card{background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:18px}
+.landing-card h3{margin:0 0 8px;font-size:18px}
+.landing-card p{margin:0;line-height:1.6;color:#444b5c;font-size:15px}
+.landing-cue{display:block;text-align:center;margin:16px 0 4px;color:#555;text-decoration:none;font-weight:600}
+@media(max-width:760px){.landing-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
+
+
+<!-- ============ LANDING ============ -->
+<section id="landing" class="landing" data-landing="hostel-dost">
+  <div class="landing-hero" id="landing-hero">
+    <h2>One group chat for your hostel block.</h2>
+    <p>Hostel Dost is a group chat for one hostel block. New students ask the everyday questions in the chat itself, and Dost Bot, a member of the same chat, answers the common ones right away.</p>
+    <a class="landing-cta" href="#screen-join">Open the app</a>
+  </div>
+  <div class="landing-grid">
+    <article class="landing-card" id="landing-problem">
+      <h3>The problem</h3>
+      <p>On the first days in a hostel, the same small questions come up again and again. When does the mess close? When does the laundry come? What is the Wi-Fi like, and what are the gate rules? A new student often has no one to ask.</p>
+    </article>
+    <article class="landing-card" id="landing-solution">
+      <h3>The solution</h3>
+      <p>Join with just your name, your role and your block — no password. Ask in the chat, in Hindi or English. Dost Bot answers the common questions it knows. If it does not know, it says so plainly and a senior answers. It does not make up an answer.</p>
+    </article>
+    <article class="landing-card" id="landing-outcome">
+      <h3>The outcome</h3>
+      <p>Everyday answers are in one place, inside the block chat, instead of being asked again and again. New students settle in faster, and seniors only step in for the questions the bot cannot answer.</p>
+    </article>
+  </div>
+  <a class="landing-cue" href="#screen-join">&#8595; Open the app — join your block chat</a>
+</section>
 
 <!-- ============ SCREEN 1: JOIN ============ -->
 <section id="screen-join" class="screen">
